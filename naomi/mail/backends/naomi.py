@@ -20,9 +20,9 @@ class NaomiBackend(EmailBackend):
         if hasattr(message, 'attachments') and message.attachments:
             temporary_path = settings.EMAIL_FILE_PATH
             for attachment in message.attachments:
-                new_file = open(os.path.join(temporary_path, attachment.name), 'wb+')
-                new_file.write(attachment.read())
-                attachments.append([attachment.name, new_file.name])
+                new_file = open(os.path.join(temporary_path, attachment.filename), 'wb+')
+                new_file.write(attachment.content)
+                attachments.append([attachment.filename, new_file.name])
                 new_file.close()
         if hasattr(message, 'alternatives') and message.alternatives:
             body = message.alternatives[0][0]
